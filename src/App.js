@@ -1,8 +1,14 @@
+import { ThemeProvider } from "@material-ui/styles";
+import NavBar from "./components/NavBar";
+import theme from "./theme";
+
 function App() {
   return (
-    <div className="App">
-      <h2>Hello</h2>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <NavBar />
+      </div>
+    </ThemeProvider>
   );
 }
 
