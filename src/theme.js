@@ -8,10 +8,11 @@ const theme = createMuiTheme({
       main: "#222222",
     },
     secondary: {
-      main: grey[100],
+      main: "#ffffff",
     },
     text: {
-      primary: "#00b7eb",
+        primary: "#00b7eb",
+        secondary: "#FF00FF"
     },
   },
 });

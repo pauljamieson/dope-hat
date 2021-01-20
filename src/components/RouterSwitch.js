@@ -2,6 +2,7 @@ import { Box } from "@material-ui/core";
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import Signup from "./Signup";
 
 const RouterSwitch = (props) => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const RouterSwitch = (props) => {
         <Box>Login</Box>
       </Route>
       <Route exact path="/signup">
-        <Box>Signup</Box>
+        <Signup />
       </Route>
       <Route path="*">
         <Box>Error: 404 - Nothing found at {location.pathname}</Box>
