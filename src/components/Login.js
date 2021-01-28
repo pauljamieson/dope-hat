@@ -23,7 +23,11 @@ const Login = (props) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Box textAlign="center">
-                <MyOutlinedField id="password" label="password" />
+                <MyOutlinedField
+                  type="password"
+                  id="password"
+                  label="password"
+                />
               </Box>
             </Grid>
             <Grid item xs={12}>
