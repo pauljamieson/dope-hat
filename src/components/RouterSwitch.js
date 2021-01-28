@@ -2,6 +2,7 @@ import { Box } from "@material-ui/core";
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import Login from "./Login";
 import Signup from "./Signup";
 
 const RouterSwitch = (props) => {
@@ -12,7 +13,7 @@ const RouterSwitch = (props) => {
         <Box>Home</Box>
       </Route>
       <Route exact path="/login">
-        <Box>Login</Box>
+        <Login />
       </Route>
       <Route exact path="/signup">
         <Signup />
