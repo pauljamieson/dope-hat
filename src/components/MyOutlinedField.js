@@ -30,7 +30,7 @@ const MyOutlinedField = ({ classes, ...other }) => {
       className={classes.root}
       InputLabelProps={{ className: classes.label }}
       variant="outlined"
-      fullWidth="true"
+      fullWidth
       {...other}
     />
   );
