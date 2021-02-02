@@ -35,6 +35,10 @@ const Signup = (props) => {
           : setSignupErr({ isErr: true, msg: resp.reason });
       });
     }
+    setTimeout(() => {
+      setPassErr({ isErr: false, msg: "" });
+      setSignupErr({ isErr: false, msg: "" });
+    }, 3000);
   };
 
   return (
@@ -44,17 +48,22 @@ const Signup = (props) => {
           <Grid container spacing={2} justify="center" alignItems="center">
             <Grid item xs={12} sm={6}>
               <Box textAlign="center">
-                <MyOutlinedField id="username" label="Username" />
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Box textAlign="center">
-                <MyOutlinedField id="display_name" label="Display Name" />
+                <MyOutlinedField required id="username" label="Username" />
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Box textAlign="center">
                 <MyOutlinedField
+                  required
+                  id="display_name"
+                  label="Display Name"
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Box textAlign="center">
+                <MyOutlinedField
+                  required
                   type="password"
                   id="password_1"
                   label="Password"
@@ -64,6 +73,7 @@ const Signup = (props) => {
             <Grid item xs={12} sm={6}>
               <Box textAlign="center">
                 <MyOutlinedField
+                  required
                   type="password"
                   id="password_2"
                   label="Confirm Password"
@@ -72,7 +82,7 @@ const Signup = (props) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Box textAlign="center">
-                <MyOutlinedField id="email" label="Email Addresss" />
+                <MyOutlinedField required id="email" label="Email Addresss" />
               </Box>
             </Grid>
             <Grid item sm={12}>
