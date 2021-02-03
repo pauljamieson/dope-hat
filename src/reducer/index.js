@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import isLoggedReducer from "./isLogged";
+import userReducer from "./user";
 
-const allReducers = combineReducers({ isLogged: isLoggedReducer });
+const allReducers = combineReducers({
+  user: userReducer,
+});
 
 export default allReducers;

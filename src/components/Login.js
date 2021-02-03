@@ -22,7 +22,7 @@ const Login = (props) => {
       if (resp.status === "success")
         if (resp.login) {
           localStorage.setItem("session_id", resp.session_id);
-          localStorage.setItem("username", username);
+          localStorage.setItem("username", username.value);
           history.push("/");
         } else {
           setLoginErr({
