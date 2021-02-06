@@ -1,4 +1,5 @@
 const APIURL = "https://dope-hat-api.herokuapp.com";
+//const APIURL = "http://localhost:9000";
 
 export const signup = (username, displayName, password, email) => {
   return new Promise((resolve, reject) => {
@@ -45,8 +46,10 @@ export const getUser = (username, sessionId) => {
     const url = new URL(APIURL);
     url.pathname = "/user";
     url.searchParams.set("username", username);
-    url.searchParams.set("session_id", sessionId);
-    fetch(url, { method: "GET" })
+    fetch(url, {
+      method: "GET",
+      headers: { username: username, session_id: sessionId },
+    })
       .then((resp) => resp.json())
       .then((resp) => resolve(resp))
       .catch((err) => reject(err));

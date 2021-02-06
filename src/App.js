@@ -11,6 +11,7 @@ function App() {
   const dispatch = useDispatch();
 
   if (localStorage.getItem("username")) {
+    console.log("logged");
     getUser(
       localStorage.getItem("username"),
       localStorage.getItem("session_id")
