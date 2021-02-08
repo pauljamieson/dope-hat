@@ -4,14 +4,14 @@ import RouterSwitch from "./components/RouterSwitch";
 import theme from "./theme";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser } from "./action";
+import { setUser, loggedIn } from "./action";
 import { getUser } from "./helpers/WebApi";
+
 
 function App() {
   const dispatch = useDispatch();
 
   if (localStorage.getItem("username")) {
-    console.log("logged");
     getUser(
       localStorage.getItem("username"),
       localStorage.getItem("session_id")
@@ -25,6 +25,7 @@ function App() {
             resp.projects
           )
         );
+        dispatch(loggedIn());
       })
       .catch((err) => console.log(`Err: ${err}`));
   }

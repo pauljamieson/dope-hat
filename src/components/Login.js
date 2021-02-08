@@ -4,10 +4,14 @@ import MyButton from "./MyButton";
 import MyOutlinedField from "./MyOutlinedField";
 import { useHistory } from "react-router-dom";
 import { login } from "../helpers/WebApi";
+import { useDispatch } from "react-redux";
+import { loggedIn, setUser } from "../action";
 
 const Login = (props) => {
   const history = useHistory();
   const [loginErr, setLoginErr] = useState({ isErr: false, msg: "" });
+  const dispatch = useDispatch();
+
   if (localStorage.getItem("session_id")) history.push("/");
 
   const signupClickHandler = (e) => {
@@ -22,7 +26,16 @@ const Login = (props) => {
       if (resp.status === "success")
         if (resp.login) {
           localStorage.setItem("session_id", resp.session_id);
-          localStorage.setItem("username", username.value);
+          localStorage.setItem("username", resp.username);
+          dispatch(
+            setUser(
+              resp.username,
+              resp.session_id,
+              resp.display_name,
+              resp.projects
+            )
+          );
+          dispatch(loggedIn());
           history.push("/");
         } else {
           setLoginErr({

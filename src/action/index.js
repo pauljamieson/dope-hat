@@ -21,3 +21,15 @@ export const clearUser = () => {
     },
   };
 };
+
+export const loggedIn = () => {
+  return {
+    type: "LOGIN",
+  };
+};
+
+export const loggedOut = () => {
+  return {
+    type: "LOGOUT",
+  };
+};
