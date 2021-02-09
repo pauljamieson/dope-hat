@@ -1,5 +1,7 @@
-const APIURL = "https://dope-hat-api.herokuapp.com";
-//const APIURL = "http://192.168.0.120:9000";
+const APIURL =
+  process.env.APP_ENV === "PRD"
+    ? "https://dope-hat-api.herokuapp.com"
+    : "http://192.168.0.120:9000";
 
 export const signup = (username, displayName, password, email) => {
   return new Promise((resolve, reject) => {

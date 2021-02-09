@@ -4,9 +4,9 @@ import RouterSwitch from "./components/RouterSwitch";
 import theme from "./theme";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser, loggedIn } from "./action";
+import { setUser, loggedIn, loggedOut, clearUser } from "./action";
 import { getUser } from "./helpers/WebApi";
-
+import { Button } from "@material-ui/core";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,11 +30,20 @@ function App() {
       .catch((err) => console.log(`Err: ${err}`));
   }
 
+  const onClickHandler = (e) => {
+    localStorage.clear();
+    dispatch(clearUser());
+    dispatch(loggedOut());
+    console.log(localStorage.length);
+  };
+  //localStorage.clear();
   return (
     <MuiThemeProvider theme={theme}>
       <Router>
         <div className="App">
           <NavBar />
+          <Button onClick={onClickHandler}>Clear User</Button>
+
           <RouterSwitch />
         </div>
       </Router>

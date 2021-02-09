@@ -22,31 +22,33 @@ const Login = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { username, password } = e.target;
-    login(username.value, password.value).then((resp) => {
-      if (resp.status === "success")
-        if (resp.login) {
-          localStorage.setItem("session_id", resp.session_id);
-          localStorage.setItem("username", resp.username);
-          dispatch(
-            setUser(
-              resp.username,
-              resp.session_id,
-              resp.display_name,
-              resp.projects
-            )
-          );
-          dispatch(loggedIn());
-          history.push("/");
-        } else {
-          setLoginErr({
-            isErr: true,
-            msg: "Username and password do not match, please try again.",
-          });
-          setTimeout(() => {
-            setLoginErr({ isErr: false, msg: "" });
-          }, 3000);
-        }
-    });
+    login(username.value, password.value)
+      .then((resp) => {
+        if (resp.status === "success")
+          if (resp.login) {
+            localStorage.setItem("session_id", resp.session_id);
+            localStorage.setItem("username", resp.username);
+            dispatch(
+              setUser(
+                resp.username,
+                resp.session_id,
+                resp.display_name,
+                resp.projects
+              )
+            );
+            dispatch(loggedIn());
+            history.push("/");
+          } else {
+            setLoginErr({
+              isErr: true,
+              msg: "Username and password do not match, please try again.",
+            });
+            setTimeout(() => {
+              setLoginErr({ isErr: false, msg: "" });
+            }, 3000);
+          }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
