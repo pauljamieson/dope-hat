@@ -30,6 +30,7 @@ const Signup = (props) => {
         password_1.value,
         email.value
       ).then((resp) => {
+        console.log(resp);
         resp.status === "success"
           ? history.push("/login")
           : setSignupErr({ isErr: true, msg: resp.reason });

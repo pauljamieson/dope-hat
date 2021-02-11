@@ -2,6 +2,7 @@ import { Box, AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,10 +20,17 @@ const useStyles = makeStyles((theme) => ({
 const NavBar = (props) => {
   const classes = useStyles();
   const history = useHistory();
+  const isLogged = useSelector((state) => state.isLogged);
+  const displayName = useSelector((state) => state.user.display_name);
 
   const loginClickHandler = (e) => {
     e.preventDefault();
     history.push("/login");
+  };
+
+  const profileClickHandler = (e) => {
+    e.preventDefault();
+    history.push("/profile");
   };
 
   return (
@@ -32,9 +40,15 @@ const NavBar = (props) => {
           <Typography className={classes.title} variant="h5">
             Dope Hat
           </Typography>
-          <Button onClick={loginClickHandler} variant="outlined">
-            Login
-          </Button>
+          {isLogged ? (
+            <Button onClick={profileClickHandler} variant="outlined">
+              {displayName}
+            </Button>
+          ) : (
+            <Button onClick={loginClickHandler} variant="outlined">
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
