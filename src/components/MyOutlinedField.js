@@ -24,6 +24,7 @@ const styles = {
   label: {
     // Keeps the label th e same color when focused
     color: `${theme.palette.text.secondary}  !Important`,
+    "& span": { display: "none" },
   },
 };
 
