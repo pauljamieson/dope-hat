@@ -1,7 +1,7 @@
 const initalState = {
   username: "",
-  session_id: "",
   display_name: "",
+  session: "",
   projects: [String],
 };
 

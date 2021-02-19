@@ -4,8 +4,6 @@ import {
   Button,
   Toolbar,
   Typography,
-  FormControl,
-  InputLabel,
   Select,
   MenuItem,
 } from "@material-ui/core";
@@ -41,7 +39,7 @@ const NavBar = (props) => {
   const history = useHistory();
   const isLogged = useSelector((state) => state.isLogged);
   const displayName = useSelector((state) => state.user.display_name);
-  const user = useSelector((state) => state.user);
+
   const [projectName, setProjectName] = useState("None");
 
   const projectSelectHandler = (e) => {
@@ -73,8 +71,7 @@ const NavBar = (props) => {
           {isLogged ? (
             <div>
               <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
+                id="project-selector"
                 value={projectName}
                 className={classes.select}
                 onChange={projectSelectHandler}

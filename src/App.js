@@ -4,30 +4,31 @@ import RouterSwitch from "./components/RouterSwitch";
 import theme from "./theme";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser, loggedIn, loggedOut, clearUser } from "./action";
-import { getUser } from "./helpers/WebApi";
+import { setUser, loggedIn } from "./action";
+import { autoLogin, getUser } from "./helpers/WebApi";
+import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
 
-  if (localStorage.getItem("username")) {
-    getUser(
-      localStorage.getItem("username"),
-      localStorage.getItem("session_id")
-    )
-      .then((resp) => {
-        dispatch(
-          setUser(
-            resp.username,
-            localStorage.getItem("session_id"),
-            resp.display_name,
-            resp.projects
-          )
-        );
-        dispatch(loggedIn());
-      })
-      .catch((err) => console.log(`Err: ${err}`));
-  }
+  useEffect(() => {
+    if (localStorage.getItem("session")) {
+      autoLogin(localStorage.getItem("session")).then((resp) => {
+        if (resp.status === "success" && resp.login) {
+          dispatch(
+            setUser(
+              resp.username,
+              resp.display_name,
+              localStorage.getItem("session"),
+              resp.projects
+            )
+          );
+          dispatch(loggedIn())
+          
+        }
+      });
+    }
+  });
 
   return (
     <MuiThemeProvider theme={theme}>

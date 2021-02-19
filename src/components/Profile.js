@@ -5,6 +5,7 @@ import UserDetails from "./UserDetails";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearUser, loggedOut } from "../action";
+import { logout } from "../helpers/WebApi";
 
 const Profile = (props) => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const Profile = (props) => {
   const clickHandler = (e) => {
     dispatch(loggedOut());
     dispatch(clearUser());
-    localStorage.clear();
+    localStorage.removeItem("session");
     history.push("/");
   };
 

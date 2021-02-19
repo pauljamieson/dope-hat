@@ -12,7 +12,8 @@ const CreateProject = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProject(e.target.project_name.value, user.username, user.session_id)
+    const { project_name } = e.target;
+    createProject(project_name.value, user.username, user.session_id)
       .then((resp) => history.push(`/project/${resp.project_id}`))
       .catch((err) => console.log(err));
   };

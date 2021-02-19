@@ -12,8 +12,6 @@ const Login = (props) => {
   const [loginErr, setLoginErr] = useState({ isErr: false, msg: "" });
   const dispatch = useDispatch();
 
-  if (localStorage.getItem("session_id")) history.push("/");
-
   const signupClickHandler = (e) => {
     e.preventDefault();
     history.push("/signup");
@@ -26,13 +24,11 @@ const Login = (props) => {
       .then((resp) => {
         if (resp.status === "success")
           if (resp.login) {
-            localStorage.setItem("session_id", resp.session_id);
-            localStorage.setItem("username", resp.username);
             dispatch(
               setUser(
                 resp.username,
-                resp.session_id,
                 resp.display_name,
+                localStorage.getItem("session"),
                 resp.projects
               )
             );

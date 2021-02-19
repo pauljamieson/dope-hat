@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import CreateProject from "./CreateProject";
 import Login from "./Login";
 import Profile from "./Profile";
+import Project from "./Project";
 import Signup from "./Signup";
 
 const RouterSwitch = (props) => {
@@ -27,7 +28,7 @@ const RouterSwitch = (props) => {
         <CreateProject />
       </Route>
       <Route path="/project/:id">
-        <div>test</div>
+        <Project />
       </Route>
 
       <Route path="*">

@@ -1,10 +1,10 @@
-export const setUser = (username, displayName, sessionId, projects) => {
+export const setUser = (username, displayName, session, projects) => {
   return {
     type: "SET_USER",
     payload: {
       username: username,
-      session_id: displayName,
-      display_name: sessionId,
+      display_name: displayName,
+      session: session,
       projects: projects,
     },
   };
@@ -15,8 +15,8 @@ export const clearUser = () => {
     type: "SET_USER",
     payload: {
       username: "",
-      session_id: "",
       display_name: "",
+      session: "",
       projects: [],
     },
   };
