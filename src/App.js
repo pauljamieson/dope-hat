@@ -14,7 +14,6 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("session")) {
       autoLogin(localStorage.getItem("session")).then((resp) => {
-        console.log(resp);
         if (resp.status === "success" && resp.login) {
           dispatch(
             setUser(
