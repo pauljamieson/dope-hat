@@ -21,42 +21,21 @@ const Project = (props) => {
   return (
     <Container maxWidth="xl">
       {project && (
-        <Grid container spacing={2} s>
-          <Grid container justify="center" alignItems="center" item xs={12}>
+        <Grid container justify="space-evenly" spacing={2}>
+          <Grid item xs={12}>
             <Box textAlign="center">
               <Typography color="textPrimary" variant="h5">
                 {project.name}
               </Typography>
             </Box>
           </Grid>
-          <Grid
-            container
-            justify="flex-end"
-            alignItems="flex-start"
-            item
-            xs={12}
-            md={4}
-          >
+          <Grid item xs={12} sm={6}>
             <MemberList title="Team Leaders" members={project.leaders} />
           </Grid>
-          <Grid
-            container
-            justify="flex-start"
-            alignItems="flex-start"
-            item
-            xs={12}
-            md={4}
-          >
+          <Grid item xs={12} sm={6}>
             <MemberList title="Team Members" members={project.members} />
           </Grid>
-          <Grid
-            container
-            justify="flex-start"
-            alignItems="flex-start"
-            item
-            xs={12}
-            md={4}
-          >
+          <Grid container justify="center" item xs={12} sm={6}>
             <MyButton>New Task</MyButton>
           </Grid>
         </Grid>

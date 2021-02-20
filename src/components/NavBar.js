@@ -70,28 +70,8 @@ const NavBar = (props) => {
           </Typography>
           {isLogged ? (
             <div>
-              <Select
-                id="project-selector"
-                value={projectName}
-                className={classes.select}
-                onChange={projectSelectHandler}
-              >
-                <MenuItem className={classes.select} value="None">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem className={classes.select} value="Ten">
-                  Ten
-                </MenuItem>
-                <MenuItem className={classes.select} value="Twenty">
-                  Twenty
-                </MenuItem>
-                <MenuItem className={classes.select} value="Thirty">
-                  Thirty
-                </MenuItem>
-              </Select>
-
               <Button onClick={createClickHandler} variant="outlined">
-                Create Project
+                New Project
               </Button>
               <Button onClick={profileClickHandler} variant="outlined">
                 {displayName}

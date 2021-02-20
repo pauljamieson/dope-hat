@@ -4,6 +4,7 @@ import {
   ListItem,
   ListItemText,
   Typography,
+  Grid,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { getUserById } from "../helpers/WebApi";
@@ -22,31 +23,33 @@ const MemberList = (props) => {
   }, [user]);
 
   return (
-    <Box width="300px">
-      <Box textAlign="center">
-        <Typography color="textPrimary" variant="body1">
-          {title}
-        </Typography>
-      </Box>
-      <List dense>
-        {listMembers.map((member, idx) => (
-          <ListItem divider key={idx} button onClick={() => alert(member.id)}>
-            <ListItemText
-              primaryTypographyProps={{ color: "textPrimary" }}
-              primary={member.display_name}
-            ></ListItemText>
+    <Grid justify="center" container>
+      <Box minWidth="300px">
+        <Box textAlign="center">
+          <Typography color="textPrimary" variant="body1">
+            {title}
+          </Typography>
+        </Box>
+        <List dense>
+          {listMembers.map((member, idx) => (
+            <ListItem divider key={idx} button onClick={() => alert(member.id)}>
+              <ListItemText
+                primaryTypographyProps={{ color: "textPrimary" }}
+                primary={member.display_name}
+              ></ListItemText>
+            </ListItem>
+          ))}
+          <ListItem divider button onClick={() => alert("add new member")}>
+            <Box textAlign="center" clone>
+              <ListItemText
+                primaryTypographyProps={{ color: "textPrimary" }}
+                primary="+"
+              ></ListItemText>
+            </Box>
           </ListItem>
-        ))}
-        <ListItem divider button onClick={() => alert("add new member")}>
-          <Box textAlign="center" clone>
-            <ListItemText
-              primaryTypographyProps={{ color: "textPrimary" }}
-              primary="+"
-            ></ListItemText>
-          </Box>
-        </ListItem>
-      </List>
-    </Box>
+        </List>
+      </Box>
+    </Grid>
   );
 };
 

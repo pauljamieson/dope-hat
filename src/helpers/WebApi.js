@@ -1,4 +1,4 @@
-const APIURL = "https://dope-hat-api.herokuapp.com"; //"http://localhost:9000";
+const APIURL = "http://192.168.0.120:9000"; //"https://dope-hat-api.herokuapp.com";
 
 export const signup = (username, displayName, password, email) => {
   return new Promise((resolve, reject) => {
