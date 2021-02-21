@@ -19,14 +19,16 @@ const MemberList = (props) => {
     const promises = members.map((id) =>
       getUserById(id, user.username, user.session_id)
     );
-    Promise.all(promises).then((vals) => setListMembers(vals));
+    Promise.all(promises)
+      .then((vals) => setListMembers(vals))
+      .catch((err) => console.log(err));
   }, [user]);
 
   return (
     <Grid justify="center" container>
       <Box minWidth="300px">
         <Box textAlign="center">
-          <Typography color="textPrimary" variant="body1">
+          <Typography color="textSecondary" variant="body1">
             {title}
           </Typography>
         </Box>

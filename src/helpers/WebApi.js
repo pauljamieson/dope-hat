@@ -77,14 +77,14 @@ export const logout = () => {
   });
 };
 
-export const getUser = (username, sessionId) => {
+export const getUser = (username) => {
   return new Promise((resolve, reject) => {
     const url = new URL(APIURL);
     url.pathname = "/user";
     url.searchParams.set("username", username);
     fetch(url, {
       method: "GET",
-      headers: { username: username, session_id: sessionId },
+      headers: { session: localStorage.getItem("session") },
     })
       .then((resp) => resp.json())
       .then((resp) => resolve(resp))
@@ -92,14 +92,14 @@ export const getUser = (username, sessionId) => {
   });
 };
 
-export const getUserById = (id, username, sessionId) => {
+export const getUserById = (id) => {
   return new Promise((resolve, reject) => {
     const url = new URL(APIURL);
     url.pathname = "/user/byId";
     url.searchParams.set("id", id);
     fetch(url, {
       method: "GET",
-      headers: { username: username, session_id: sessionId },
+      headers: { session: localStorage.getItem("session") },
     })
       .then((resp) => resp.json())
       .then((resp) => resolve(resp))
@@ -114,13 +114,11 @@ export const createProject = (projectName, username, sessionId) => {
     const body = {
       project_name: projectName,
     };
-    console.log(username);
     fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        username: username,
-        session_id: sessionId,
+        session: localStorage.getItem("session"),
       },
       body: JSON.stringify(body),
     })
@@ -130,14 +128,16 @@ export const createProject = (projectName, username, sessionId) => {
   });
 };
 
-export const getProject = (projectId, username, sessionId) => {
+export const getProject = (projectId) => {
   return new Promise((resolve, reject) => {
     const url = new URL(APIURL);
     url.pathname = "/project";
     url.searchParams.set("project_id", projectId);
     fetch(url, {
       method: "GET",
-      headers: { username: username, session_id: sessionId },
+      headers: {
+        session: localStorage.getItem("session"),
+      },
     })
       .then((resp) => resp.json())
       .then((resp) => resolve(resp))
