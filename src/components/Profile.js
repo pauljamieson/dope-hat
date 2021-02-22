@@ -2,6 +2,7 @@ import { Box, Container, Grid } from "@material-ui/core";
 import React from "react";
 import MyButton from "./MyButton";
 import UserDetails from "./UserDetails";
+import ProjectList from "./ProjectList";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearUser, loggedOut } from "../action";
@@ -30,7 +31,9 @@ const Profile = (props) => {
               <MyButton onClick={clickHandler}>Logout</MyButton>
             </Box>
           </Grid>
-          <Grid item></Grid>
+          <Grid item xs={12}>
+            <ProjectList />
+          </Grid>
           <Grid item></Grid>
         </Grid>
       </Container>

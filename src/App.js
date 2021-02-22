@@ -3,16 +3,17 @@ import NavBar from "./components/NavBar";
 import RouterSwitch from "./components/RouterSwitch";
 import theme from "./theme";
 import { BrowserRouter as Router } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser, loggedIn } from "./action";
 import { autoLogin, getUser } from "./helpers/WebApi";
 import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
+  const isLogged = useSelector((state) => state.loggedIn);
 
   useEffect(() => {
-    if (localStorage.getItem("session")) {
+    if (!isLogged && localStorage.getItem("session")) {
       autoLogin(localStorage.getItem("session")).then((resp) => {
         if (resp.status === "success" && resp.login) {
           dispatch(
