@@ -17,16 +17,23 @@ const ProjectList = (props) => {
   ]);
 
   useEffect(() => {
-    const promises = user.projects.map((id) => getProject(id));
-    Promise.all(promises)
-      .then((values) =>
-        setDisplayList(
-          values.map((resp, idx) => {
-            return { id: idx, title: resp.project.name, _id: resp.project._id };
-          })
+    if (user.projects) {
+      console.log(typeof user.projects);
+      const promises = user.projects.map((id) => getProject(id));
+      Promise.all(promises)
+        .then((values) =>
+          setDisplayList(
+            values.map((resp, idx) => {
+              return {
+                id: idx,
+                title: resp.project.name,
+                _id: resp.project._id,
+              };
+            })
+          )
         )
-      )
-      .catch((err) => console.log(err));
+        .catch((err) => console.log(err));
+    }
   }, [user]);
 
   const handleRowClick = (e) => {

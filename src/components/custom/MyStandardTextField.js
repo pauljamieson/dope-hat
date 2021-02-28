@@ -1,6 +1,6 @@
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import theme from "../theme";
+import theme from "../../theme";
 
 const styles = {
   root: {

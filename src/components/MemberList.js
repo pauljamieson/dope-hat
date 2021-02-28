@@ -22,11 +22,11 @@ const MemberList = (props) => {
     Promise.all(promises)
       .then((vals) => setListMembers(vals))
       .catch((err) => console.log(err));
-  }, [user]);
+  }, [members, user.username, user.session_id]);
 
   return (
     <Grid justify="center" container>
-      <Box minWidth="300px">
+      <Box minWidth="300px" flexGrow={1}>
         <Box textAlign="center">
           <Typography color="textSecondary" variant="body1">
             {title}

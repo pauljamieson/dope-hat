@@ -1,18 +1,17 @@
 import { Box, Container, Grid } from "@material-ui/core";
 import React from "react";
-import MyButton from "./MyButton";
+import MyButton from "./custom/MyButton";
 import UserDetails from "./UserDetails";
 import ProjectList from "./ProjectList";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearUser, loggedOut } from "../action";
-import { logout } from "../helpers/WebApi";
 
 const Profile = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const clickHandler = (e) => {
+  const logoutClickHandler = (e) => {
     dispatch(loggedOut());
     dispatch(clearUser());
     localStorage.removeItem("session");
@@ -28,7 +27,7 @@ const Profile = (props) => {
           </Grid>
           <Grid item xs={12}>
             <Box textAlign="center" margin={2}>
-              <MyButton onClick={clickHandler}>Logout</MyButton>
+              <MyButton onClick={logoutClickHandler}>Logout</MyButton>
             </Box>
           </Grid>
           <Grid item xs={12}>

@@ -1,7 +1,7 @@
 import { Grid, Box, Container, Typography, Link } from "@material-ui/core";
 import React, { useState } from "react";
-import MyButton from "./MyButton";
-import MyOutlinedField from "./MyOutlinedField";
+import MyButton from "./custom/MyButton";
+import MyOutlinedField from "./custom/MyOutlinedField";
 import { useHistory } from "react-router-dom";
 import { login } from "../helpers/WebApi";
 import { useDispatch } from "react-redux";

@@ -1,8 +1,7 @@
 import { Grid, Box } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
-
-import MyStandardTextField from "./MyStandardTextField";
+import MyStandardTextField from "./custom/MyStandardTextField";
 
 const UserDetails = (props) => {
   const user = useSelector((state) => state.user);

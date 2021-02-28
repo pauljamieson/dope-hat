@@ -1,13 +1,11 @@
 import { Box, Container, Grid } from "@material-ui/core";
 import React from "react";
-import MyButton from "./MyButton";
-import MyOutlinedField from "./MyOutlinedField";
+import MyButton from "./custom/MyButton";
+import MyOutlinedField from "./custom/MyOutlinedField"
 import { createProject } from "../helpers/WebApi";
-import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 const CreateProject = (props) => {
-  const user = useSelector((state) => state.user);
   const history = useHistory();
 
   const onSubmit = (e) => {

@@ -2,8 +2,8 @@ import { Grid, Container, Box, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { signup } from "../helpers/WebApi";
-import MyButton from "./MyButton";
-import MyOutlinedField from "./MyOutlinedField";
+import MyButton from "./custom/MyButton";
+import MyOutlinedField from "./custom/MyOutlinedField";
 
 const Signup = (props) => {
   const history = useHistory();
