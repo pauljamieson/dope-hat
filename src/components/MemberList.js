@@ -17,12 +17,12 @@ const MemberList = (props) => {
 
   useEffect(() => {
     const promises = members.map((id) =>
-      getUserById(id, user.username, user.session_id)
+      getUserById(id, user.username)
     );
     Promise.all(promises)
       .then((vals) => setListMembers(vals))
       .catch((err) => console.log(err));
-  }, [members, user.username, user.session_id]);
+  }, [members, user.username]);
 
   return (
     <Grid justify="center" container>

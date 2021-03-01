@@ -144,3 +144,19 @@ export const getProject = (projectId) => {
       .catch((err) => reject(err));
   });
 };
+
+export const getAllProjects = () => {
+  return new Promise((resolve, reject) => {
+    const url = new URL(APIURL);
+    url.pathname = "/project/all";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        session: localStorage.getItem("session"),
+      },
+    })
+      .then((resp) => resp.json())
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err));
+  });
+};

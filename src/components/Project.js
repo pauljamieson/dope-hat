@@ -20,13 +20,24 @@ const Project = (props) => {
 
   return (
     <Container maxWidth="md">
-      {project && (
+      {project ? (
         <Grid container justify="center" spacing={2}>
-          <Grid item xs={12}>
-            <Typography align="center" color="textPrimary" variant="h5">
-              <Typography color="textSecondary" variant="span">
-                Project Title:{" "}
-              </Typography>
+          <Grid item container justify="center" xs={12}>
+            <Typography
+              display="inline"
+              align="center"
+              color="textSecondary"
+              variant="h5"
+            >
+              Project Title:
+            </Typography>
+            &nbsp;
+            <Typography
+              display="inline"
+              align="center"
+              color="textPrimary"
+              variant="h5"
+            >
               {project.name}
             </Typography>
           </Grid>
@@ -42,6 +53,8 @@ const Project = (props) => {
             <MyButton>New Task</MyButton>
           </Grid>
         </Grid>
+      ) : (
+        <div></div>
       )}
     </Container>
   );

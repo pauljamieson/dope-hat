@@ -24,14 +24,7 @@ const Login = (props) => {
       .then((resp) => {
         if (resp.status === "success")
           if (resp.login) {
-            dispatch(
-              setUser(
-                resp.username,
-                resp.display_name,
-                localStorage.getItem("session"),
-                resp.projects
-              )
-            );
+            dispatch(setUser(resp.username, resp.display_name));
             dispatch(loggedIn());
             history.push("/");
           } else {
@@ -54,7 +47,11 @@ const Login = (props) => {
           <Grid container spacing={2} justify="center" alignItems="center">
             <Grid item xs={12} sm={6}>
               <Box textAlign="center">
-                <MyOutlinedField id="username" label="username" />
+                <MyOutlinedField
+                  id="username"
+                  label="username"
+                  autoComplete="username"
+                />
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -63,6 +60,7 @@ const Login = (props) => {
                   type="password"
                   id="password"
                   label="password"
+                  autoComplete="password"
                 />
               </Box>
             </Grid>

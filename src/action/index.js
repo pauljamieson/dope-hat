@@ -4,8 +4,6 @@ export const setUser = (username, displayName, session, projects) => {
     payload: {
       username: username,
       display_name: displayName,
-      session: session,
-      projects: projects,
     },
   };
 };
@@ -16,8 +14,6 @@ export const clearUser = () => {
     payload: {
       username: "",
       display_name: "",
-      session: "",
-      projects: [],
     },
   };
 };
