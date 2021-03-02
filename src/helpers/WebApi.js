@@ -66,17 +66,6 @@ export const autoLogin = (session) => {
   });
 };
 
-export const logout = () => {
-  return new Promise((resolve, reject) => {
-    const url = new URL(APIURL);
-    url.pathname = "/logout";
-    fetch(url, { method: "GET", credentials: "include" })
-      .then((resp) => resp.json())
-      .then((resp) => resolve(resp))
-      .catch((err) => reject(err));
-  });
-};
-
 export const getUser = (username) => {
   return new Promise((resolve, reject) => {
     const url = new URL(APIURL);
@@ -151,6 +140,22 @@ export const getAllProjects = () => {
     url.pathname = "/project/all";
     fetch(url, {
       method: "GET",
+      headers: {
+        session: localStorage.getItem("session"),
+      },
+    })
+      .then((resp) => resp.json())
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err));
+  });
+};
+
+export const deleteProject = (id) => {
+  return new Promise((resolve, reject) => {
+    const url = new URL(APIURL);
+    url.pathname = `/project/${id}`;
+    fetch(url, {
+      method: "DELETE",
       headers: {
         session: localStorage.getItem("session"),
       },

@@ -1,14 +1,20 @@
 import { Container, Grid, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getProject } from "../helpers/WebApi";
+import { useHistory, useParams } from "react-router-dom";
+import { deleteProject, getProject } from "../helpers/WebApi";
 import MemberList from "./MemberList";
 import MyButton from "./custom/MyButton";
 
 const Project = (props) => {
   const { id } = useParams();
-
   const [project, setProject] = useState(null);
+  const history = useHistory();
+
+  const handleDeleteClick = (e) => {
+    deleteProject(project._id).then((result) => {
+      if (result.status === "success") history.push("/profile");
+    });
+  };
 
   useEffect(() => {
     getProject(id)
@@ -49,8 +55,17 @@ const Project = (props) => {
             <MemberList title="Team Members" members={project.members} />
           </Grid>
 
-          <Grid container justify="center" item xs={12} sm={6}>
+          <Grid
+            container
+            justify="space-evenly"
+            spacing={2}
+            height="200px"
+            item
+            xs={12}
+          >
             <MyButton>New Task</MyButton>
+            <MyButton>Leave Project</MyButton>
+            <MyButton onClick={handleDeleteClick}>Delete Project</MyButton>
           </Grid>
         </Grid>
       ) : (
