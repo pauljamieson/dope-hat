@@ -26,7 +26,7 @@ const Login = (props) => {
           if (resp.login) {
             dispatch(setUser(resp.username, resp.display_name));
             dispatch(loggedIn());
-            history.push("/");
+            history.push("/profile");
           } else {
             setLoginErr({
               isErr: true,

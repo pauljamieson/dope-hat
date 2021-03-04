@@ -1,6 +1,7 @@
 import { Grid, Box } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
+import MyOutlinedField from "./custom/MyOutlinedField";
 import MyStandardTextField from "./custom/MyStandardTextField";
 
 const UserDetails = (props) => {
@@ -10,12 +11,12 @@ const UserDetails = (props) => {
       <Grid container spacing={2} justify="center" alignItems="center">
         <Grid item xs={12} sm={6}>
           <Box textAlign="center">
-            <MyStandardTextField label="Username" value={user.username} />
+            <MyOutlinedField label="Username" value={user.username} />
           </Box>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Box textAlign="center">
-            <MyStandardTextField
+            <MyOutlinedField
               label="Display Name"
               value={user.display_name}
             />

@@ -1,13 +1,14 @@
 import { Container, Grid, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { deleteProject, getProject } from "../helpers/WebApi";
+import { deleteProject, getProject, isProjectLeader } from "../helpers/WebApi";
 import MemberList from "./MemberList";
 import MyButton from "./custom/MyButton";
 
 const Project = (props) => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
+  const [isLeader, setIsLeader] = useState(false);
   const history = useHistory();
 
   const handleDeleteClick = (e) => {
@@ -22,6 +23,9 @@ const Project = (props) => {
         setProject(resp.project);
       })
       .catch((err) => console.log(err));
+    isProjectLeader(id).then((status) => {
+      setIsLeader(status.is_leader);
+    });
   }, [id]);
 
   return (
@@ -49,10 +53,18 @@ const Project = (props) => {
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <MemberList title="Team Leaders" members={project.leaders} />
+            <MemberList
+              title="Team Leaders"
+              members={project.leaders}
+              isLeader={isLeader}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <MemberList title="Team Members" members={project.members} />
+            <MemberList
+              title="Team Members"
+              members={project.members}
+              isLeader={isLeader}
+            />
           </Grid>
 
           <Grid

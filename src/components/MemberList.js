@@ -9,16 +9,15 @@ import {
 import React, { useEffect, useState } from "react";
 import { getUserById } from "../helpers/WebApi";
 import { useSelector } from "react-redux";
+import AddMembers from "./AddMembers";
 
 const MemberList = (props) => {
-  const { members, title } = props;
+  const { members, title, isLeader } = props;
   const [listMembers, setListMembers] = useState([]);
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    const promises = members.map((id) =>
-      getUserById(id, user.username)
-    );
+    const promises = members.map((id) => getUserById(id, user.username));
     Promise.all(promises)
       .then((vals) => setListMembers(vals))
       .catch((err) => console.log(err));
@@ -41,14 +40,7 @@ const MemberList = (props) => {
               ></ListItemText>
             </ListItem>
           ))}
-          <ListItem divider button onClick={() => alert("add new member")}>
-            <Box textAlign="center" clone>
-              <ListItemText
-                primaryTypographyProps={{ color: "textPrimary" }}
-                primary="+"
-              ></ListItemText>
-            </Box>
-          </ListItem>
+          {isLeader && <AddMembers listName={title} />}
         </List>
       </Box>
     </Grid>

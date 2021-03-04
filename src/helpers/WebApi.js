@@ -165,3 +165,59 @@ export const deleteProject = (id) => {
       .catch((err) => reject(err));
   });
 };
+
+export const getAllDisplayNames = () => {
+  return new Promise((resolve, reject) => {
+    const url = new URL(APIURL);
+    url.pathname = "/user/allDisplayNames";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        session: localStorage.getItem("session"),
+      },
+    })
+      .then((resp) => resp.json())
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err));
+  });
+};
+
+export const isProjectLeader = (projectId) => {
+  return new Promise((resolve, reject) => {
+    const url = new URL(APIURL);
+    url.pathname = "/project/isLeader";
+    url.searchParams.set("project_id", projectId);
+    fetch(url, {
+      method: "GET",
+      headers: {
+        session: localStorage.getItem("session"),
+      },
+    })
+      .then((resp) => resp.json())
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err));
+  });
+};
+
+export const addProjectMembers = (projectId, type, members) => {
+  return new Promise((resolve, reject) => {
+    const url = new URL(APIURL);
+    url.pathname = "/project/addMembers";
+    const body = {
+      project_id: projectId,
+      type: type,
+      members: members
+    };
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        session: localStorage.getItem("session"),
+      },
+      body: JSON.stringify(body),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err));
+  });
+};
