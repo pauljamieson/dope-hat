@@ -16,6 +16,8 @@ import { addProjectMembers, getAllDisplayNames } from "../helpers/WebApi";
 import MyButton from "./custom/MyButton";
 import theme from "../theme";
 import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setProjectLeaders, setProjectMembers } from "../action";
 
 const useStyles = makeStyles({
   dialog: {
@@ -28,12 +30,16 @@ const useStyles = makeStyles({
 });
 
 const AddMembers = (props) => {
-  const { listName } = props;
+  const { type } = props;
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState(["loading..."]);
   const [values, setValues] = useState([]);
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const location = useLocation();
+  const members = useSelector((state) =>
+    type === 1 ? state.projectLeaders.members : state.projectMembers.members
+  );
+  const projectData = useSelector((state) => state.projectData);
 
   const handleOpenClick = () => {
     setOpen(!open);
@@ -41,14 +47,16 @@ const AddMembers = (props) => {
 
   const handleAddClick = (e) => {
     e.preventDefault();
-    //const afterSlash = /([^/]+$)/;
-    const projectId = location.pathname.match(/([^/]+$)/);
-    let type = listName === "Team Leaders" ? 1 : 2;
-    console.log(projectId[0], type, values);
-    addProjectMembers(projectId[0], type, values).then((result) => {
-      console.log(result);
-      setValues([]);
-    });
+    setOpen(!open);
+    const newMembers = [
+      ...new Set([...members, ...values.map((option) => option.userid)]),
+    ];
+    dispatch(
+      type === 1 ? setProjectLeaders(newMembers) : setProjectMembers(newMembers)
+    );
+    addProjectMembers(projectData._id, type, newMembers).then((resp) =>
+      console.log(resp)
+    );
   };
 
   const handleChange = (e, value) => {
@@ -58,8 +66,7 @@ const AddMembers = (props) => {
   useEffect(() => {
     if (open)
       getAllDisplayNames().then((results) => {
-        if (results.status === "success")
-          setOptions(results.users.map((value) => value.display_name));
+        if (results.status === "success") setOptions(results.users);
       });
   }, [open]);
 
@@ -79,7 +86,7 @@ const AddMembers = (props) => {
         onClose={handleOpenClick}
         disableBackdropClick
       >
-        <DialogTitle id="dialog-title">Add {listName}</DialogTitle>
+        <DialogTitle id="dialog-title">Add </DialogTitle>
         <form onSubmit={handleAddClick}>
           <DialogContent>
             <DialogContentText>
@@ -92,10 +99,12 @@ const AddMembers = (props) => {
               multiple
               id="add_users"
               options={options}
+              getOptionLabel={(options) => options.display_name}
               onChange={handleChange}
               renderInput={(params) => (
                 <TextField
                   {...params}
+                  label={props.label}
                   inputProps={{
                     ...params.inputProps,
                     className: classes.dialog_bg,

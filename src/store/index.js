@@ -4,7 +4,11 @@ import storage from "redux-persist/lib/storage";
 
 import rootReducers from "../reducer";
 
-const persistConfig = { key: "root", storage };
+const persistConfig = {
+  key: "root",
+  storage: storage,
+  whitelist: ["user", "isLogged"],
+};
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 

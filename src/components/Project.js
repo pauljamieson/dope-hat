@@ -1,88 +1,93 @@
 import { Container, Grid, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { deleteProject, getProject, isProjectLeader } from "../helpers/WebApi";
+import { getProject } from "../helpers/WebApi";
 import MemberList from "./MemberList";
 import MyButton from "./custom/MyButton";
+import { useDispatch, useSelector, batch } from "react-redux";
+import {
+  clearProjectLeaders,
+  clearProjectMembers,
+  clearProjectData,
+  setProjectData,
+  setProjectLeaders,
+  setProjectMembers,
+} from "../action";
 
 const Project = (props) => {
   const { id } = useParams();
-  const [project, setProject] = useState(null);
-  const [isLeader, setIsLeader] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  const handleDeleteClick = (e) => {
-    deleteProject(project._id).then((result) => {
-      if (result.status === "success") history.push("/profile");
-    });
-  };
+  const projectData = useSelector((state) => state.projectData);
+
+  const handleDeleteClick = (e) => {};
 
   useEffect(() => {
     getProject(id)
       .then((resp) => {
-        setProject(resp.project);
+        batch(() => {
+          dispatch(
+            setProjectData(resp.project.name, resp.project._id, resp.is_leader)
+          );
+          dispatch(setProjectLeaders(resp.project.leaders, resp.project._id));
+          dispatch(setProjectMembers(resp.project.members, resp.project._id));
+        });
       })
       .catch((err) => console.log(err));
-    isProjectLeader(id).then((status) => {
-      setIsLeader(status.is_leader);
-    });
-  }, [id]);
+
+    return () => {
+      batch(() => {
+        dispatch(clearProjectData());
+        dispatch(clearProjectLeaders());
+        dispatch(clearProjectMembers());
+      });
+    };
+  }, []);
 
   return (
     <Container maxWidth="md">
-      {project ? (
-        <Grid container justify="center" spacing={2}>
-          <Grid item container justify="center" xs={12}>
-            <Typography
-              display="inline"
-              align="center"
-              color="textSecondary"
-              variant="h5"
-            >
-              Project Title:
-            </Typography>
-            &nbsp;
-            <Typography
-              display="inline"
-              align="center"
-              color="textPrimary"
-              variant="h5"
-            >
-              {project.name}
-            </Typography>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <MemberList
-              title="Team Leaders"
-              members={project.leaders}
-              isLeader={isLeader}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <MemberList
-              title="Team Members"
-              members={project.members}
-              isLeader={isLeader}
-            />
-          </Grid>
-
-          <Grid
-            container
-            justify="space-evenly"
-            spacing={2}
-            height="200px"
-            item
-            xs={12}
+      <Grid container justify="center" spacing={2}>
+        <Grid item container justify="center" xs={12}>
+          <Typography
+            display="inline"
+            align="center"
+            color="textSecondary"
+            variant="h5"
           >
-            <MyButton>New Task</MyButton>
-            <MyButton>Leave Project</MyButton>
-            <MyButton onClick={handleDeleteClick}>Delete Project</MyButton>
-          </Grid>
+            Project Title:
+          </Typography>
+          &nbsp;
+          <Typography
+            display="inline"
+            align="center"
+            color="textPrimary"
+            variant="h5"
+          >
+            {projectData.name}
+          </Typography>
         </Grid>
-      ) : (
-        <div></div>
-      )}
+
+        <Grid item xs={12} sm={6}>
+          <MemberList type={1} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <MemberList type={2} />
+        </Grid>
+
+        <Grid
+          container
+          justify="space-evenly"
+          spacing={2}
+          height="200px"
+          item
+          xs={12}
+        >
+          <MyButton>New Task</MyButton>
+          <MyButton>Leave Project</MyButton>
+          <MyButton onClick={handleDeleteClick}>Delete Project</MyButton>
+        </Grid>
+      </Grid>
     </Container>
   );
 };

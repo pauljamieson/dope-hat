@@ -202,14 +202,37 @@ export const isProjectLeader = (projectId) => {
 export const addProjectMembers = (projectId, type, members) => {
   return new Promise((resolve, reject) => {
     const url = new URL(APIURL);
-    url.pathname = "/project/addMembers";
+    url.pathname = "/project/members";
     const body = {
       project_id: projectId,
       type: type,
-      members: members
+      members: members,
     };
     fetch(url, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        session: localStorage.getItem("session"),
+      },
+      body: JSON.stringify(body),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err));
+  });
+};
+
+export const removeProjectMembers = (projectId, type, members) => {
+  return new Promise((resolve, reject) => {
+    const url = new URL(APIURL);
+    url.pathname = "/project/members";
+    const body = {
+      project_id: projectId,
+      type: type,
+      members: members,
+    };
+    fetch(url, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         session: localStorage.getItem("session"),

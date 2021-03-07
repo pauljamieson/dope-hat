@@ -3,7 +3,7 @@ import React from "react";
 import MyButton from "./custom/MyButton";
 import UserDetails from "./UserDetails";
 import ProjectList from "./ProjectList";
-import { useDispatch } from "react-redux";
+import { useDispatch, batch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearUser, loggedOut } from "../action";
 
@@ -12,8 +12,10 @@ const Profile = (props) => {
   const history = useHistory();
 
   const logoutClickHandler = (e) => {
-    dispatch(loggedOut());
-    dispatch(clearUser());
+    batch(() => {
+      dispatch(loggedOut());
+      dispatch(clearUser());
+    });
     localStorage.removeItem("session");
     history.push("/");
   };

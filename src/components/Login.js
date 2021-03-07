@@ -4,7 +4,7 @@ import MyButton from "./custom/MyButton";
 import MyOutlinedField from "./custom/MyOutlinedField";
 import { useHistory } from "react-router-dom";
 import { login } from "../helpers/WebApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, batch } from "react-redux";
 import { loggedIn, setUser } from "../action";
 
 const Login = (props) => {
@@ -24,8 +24,11 @@ const Login = (props) => {
       .then((resp) => {
         if (resp.status === "success")
           if (resp.login) {
-            dispatch(setUser(resp.username, resp.display_name));
-            dispatch(loggedIn());
+            batch(() => {
+              dispatch(setUser(resp.username, resp.display_name, resp._id));
+              dispatch(loggedIn());
+            });
+
             history.push("/profile");
           } else {
             setLoginErr({
