@@ -22,12 +22,17 @@ const Project = (props) => {
   const projectData = useSelector((state) => state.projectData);
 
   const handleDeleteClick = (e) => {
-    if (projectData.isLeader) deleteProject(projectData._id);
+    if (projectData.isLeader) {
+      deleteProject(projectData._id).then((resp) => {
+        if (resp.status === "success" && resp.delete) history.push("/profile");
+      });
+    }
   };
 
   const handleLeaveClick = (e) => {
-    leaveProject(projectData._id);
-    history.push("/profile");
+    leaveProject(projectData._id).then((resp) => {
+      if (resp.status === "success") history.push("/profile");
+    });
   };
 
   useEffect(() => {
