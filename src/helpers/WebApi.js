@@ -149,23 +149,6 @@ export const getAllProjects = () => {
       .catch((err) => reject(err));
   });
 };
-
-export const deleteProject = (id) => {
-  return new Promise((resolve, reject) => {
-    const url = new URL(APIURL);
-    url.pathname = `/project/${id}`;
-    fetch(url, {
-      method: "DELETE",
-      headers: {
-        session: localStorage.getItem("session"),
-      },
-    })
-      .then((resp) => resp.json())
-      .then((resp) => resolve(resp))
-      .catch((err) => reject(err));
-  });
-};
-
 export const getAllDisplayNames = () => {
   return new Promise((resolve, reject) => {
     const url = new URL(APIURL);
@@ -249,6 +232,27 @@ export const leaveProject = (projectId, userId) => {
   return new Promise((resolve, reject) => {
     const url = new URL(APIURL);
     url.pathname = "/project/leave";
+    const body = {
+      project_id: projectId,
+    };
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        session: localStorage.getItem("session"),
+      },
+      body: JSON.stringify(body),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err));
+  });
+};
+
+export const deleteProject = (projectId) => {
+  return new Promise((resolve, reject) => {
+    const url = new URL(APIURL);
+    url.pathname = "/project";
     const body = {
       project_id: projectId,
     };

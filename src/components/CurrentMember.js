@@ -15,7 +15,6 @@ import theme from "../theme";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserById, removeProjectMembers } from "../helpers/WebApi";
 import { setProjectLeaders, setProjectMembers } from "../action";
-import { useSelection } from "@material-ui/data-grid";
 
 const useStyles = makeStyles({
   dialog: {

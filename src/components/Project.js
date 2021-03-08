@@ -1,7 +1,7 @@
 import { Container, Grid, Typography } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { getProject, leaveProject } from "../helpers/WebApi";
+import { deleteProject, getProject, leaveProject } from "../helpers/WebApi";
 import MemberList from "./MemberList";
 import MyButton from "./custom/MyButton";
 import { useDispatch, useSelector, batch } from "react-redux";
@@ -21,7 +21,9 @@ const Project = (props) => {
 
   const projectData = useSelector((state) => state.projectData);
 
-  const handleDeleteClick = (e) => {};
+  const handleDeleteClick = (e) => {
+    if (projectData.isLeader) deleteProject(projectData._id);
+  };
 
   const handleLeaveClick = (e) => {
     leaveProject(projectData._id);
