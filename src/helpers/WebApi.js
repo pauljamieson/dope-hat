@@ -49,38 +49,6 @@ export const login = (username, password) => {
   });
 };
 
-export const autoLogin = (session) => {
-  return new Promise((resolve, reject) => {
-    const url = new URL(APIURL);
-    url.pathname = "/login/auto";
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        session: session,
-      },
-    })
-      .then((resp) => resp.json())
-      .then((resp) => resolve(resp))
-      .catch((err) => reject(err));
-  });
-};
-
-export const getUser = (username) => {
-  return new Promise((resolve, reject) => {
-    const url = new URL(APIURL);
-    url.pathname = "/user";
-    url.searchParams.set("username", username);
-    fetch(url, {
-      method: "GET",
-      headers: { session: localStorage.getItem("session") },
-    })
-      .then((resp) => resp.json())
-      .then((resp) => resolve(resp))
-      .catch((err) => reject(err));
-  });
-};
-
 export const getUserById = (id) => {
   return new Promise((resolve, reject) => {
     const url = new URL(APIURL);
