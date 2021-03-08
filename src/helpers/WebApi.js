@@ -244,3 +244,24 @@ export const removeProjectMembers = (projectId, type, members) => {
       .catch((err) => reject(err));
   });
 };
+
+export const leaveProject = (projectId, userId) => {
+  return new Promise((resolve, reject) => {
+    const url = new URL(APIURL);
+    url.pathname = "/project/leave";
+    const body = {
+      project_id: projectId,
+    };
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        session: localStorage.getItem("session"),
+      },
+      body: JSON.stringify(body),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err));
+  });
+};

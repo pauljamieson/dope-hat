@@ -1,7 +1,7 @@
 import { Container, Grid, Typography } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { getProject } from "../helpers/WebApi";
+import { getProject, leaveProject } from "../helpers/WebApi";
 import MemberList from "./MemberList";
 import MyButton from "./custom/MyButton";
 import { useDispatch, useSelector, batch } from "react-redux";
@@ -22,6 +22,11 @@ const Project = (props) => {
   const projectData = useSelector((state) => state.projectData);
 
   const handleDeleteClick = (e) => {};
+
+  const handleLeaveClick = (e) => {
+    leaveProject(projectData._id);
+    history.push("/profile");
+  };
 
   useEffect(() => {
     getProject(id)
@@ -75,25 +80,11 @@ const Project = (props) => {
           <MemberList type={2} />
         </Grid>
 
-        <Grid
-          container
-          justify="space-evenly"
-          spacing={2}
-          
-          item
-          xs={12}
-        >
-          <MyButton>Leave Project</MyButton>
+        <Grid container justify="space-evenly" spacing={2} item xs={12}>
+          <MyButton onClick={handleLeaveClick}>Leave Project</MyButton>
           <MyButton onClick={handleDeleteClick}>Delete Project</MyButton>
         </Grid>
-        <Grid
-          container
-          justify="space-evenly"
-          spacing={2}
-          
-          item
-          xs={12}
-        >
+        <Grid container justify="space-evenly" spacing={2} item xs={12}>
           <MyButton>New Task</MyButton>
         </Grid>
       </Grid>

@@ -15,7 +15,6 @@ import { Autocomplete } from "@material-ui/lab";
 import { addProjectMembers, getAllDisplayNames } from "../helpers/WebApi";
 import MyButton from "./custom/MyButton";
 import theme from "../theme";
-import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setProjectLeaders, setProjectMembers } from "../action";
 
