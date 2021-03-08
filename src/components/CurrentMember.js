@@ -13,9 +13,9 @@ import {
 import MyButton from "./custom/MyButton";
 import theme from "../theme";
 import { useLocation } from "react-router-dom";
-
-import { useDispatch } from "react-redux";
-import { getUserById } from "../helpers/WebApi";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserById, removeProjectMembers } from "../helpers/WebApi";
+import { setProjectLeaders, setProjectMembers } from "../action";
 
 const useStyles = makeStyles({
   dialog: {
@@ -32,6 +32,10 @@ const CurrentMember = (props) => {
   const classes = useStyles();
   const location = useLocation();
   const dispatch = useDispatch();
+  const members = useSelector((state) =>
+    type === 1 ? state.projectLeaders.members : state.projectMembers.members
+  );
+  const projectData = useSelector((state) => state.projectData);
   const [open, setOpen] = useState(false);
   const [member, setMember] = useState({ display_name: "" });
 
@@ -41,10 +45,22 @@ const CurrentMember = (props) => {
     });
   }, [_id]);
 
-  const handleOpenClick = () => {};
+  const handleOpenClick = () => {
+    if (projectData.isLeader) setOpen(!open);
+  };
 
-  const handleClickRemove = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    const newMembers = members.filter((id) => id != member.id);
+    removeProjectMembers(projectData._id, type, newMembers).then((resp) => {
+      if (resp.status === "success")
+        dispatch(
+          type === 1
+            ? setProjectLeaders(resp.members, projectData._id)
+            : setProjectMembers(resp.members, projectData._id)
+        );
+    });
+    setOpen(!open);
   };
 
   return (
@@ -65,17 +81,15 @@ const CurrentMember = (props) => {
         disableBackdropClick
       >
         <DialogTitle id="dialog-title">Remove User</DialogTitle>
-        <form onSubmit={handleClickRemove}>
-          <DialogContent>
-            <DialogContentText>
-              Do you want to remove "NAME HERE" from this project?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <MyButton onClick={handleOpenClick}>Cancel</MyButton>
-            <MyButton type="submit">Remove</MyButton>
-          </DialogActions>
-        </form>
+        <DialogContent>
+          <DialogContentText>
+            Do you want to remove {member.display_name} from this project?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <MyButton onClick={handleOpenClick}>Cancel</MyButton>
+          <MyButton onClick={handleSubmit}>Remove</MyButton>
+        </DialogActions>
       </Dialog>
     </div>
   );

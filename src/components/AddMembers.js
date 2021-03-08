@@ -54,9 +54,7 @@ const AddMembers = (props) => {
     dispatch(
       type === 1 ? setProjectLeaders(newMembers) : setProjectMembers(newMembers)
     );
-    addProjectMembers(projectData._id, type, newMembers).then((resp) =>
-      console.log(resp)
-    );
+    addProjectMembers(projectData._id, type, newMembers);
   };
 
   const handleChange = (e, value) => {

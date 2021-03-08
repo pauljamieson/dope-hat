@@ -79,13 +79,22 @@ const Project = (props) => {
           container
           justify="space-evenly"
           spacing={2}
-          height="200px"
+          
+          item
+          xs={12}
+        >
+          <MyButton>Leave Project</MyButton>
+          <MyButton onClick={handleDeleteClick}>Delete Project</MyButton>
+        </Grid>
+        <Grid
+          container
+          justify="space-evenly"
+          spacing={2}
+          
           item
           xs={12}
         >
           <MyButton>New Task</MyButton>
-          <MyButton>Leave Project</MyButton>
-          <MyButton onClick={handleDeleteClick}>Delete Project</MyButton>
         </Grid>
       </Grid>
     </Container>
