@@ -12,10 +12,10 @@ import {
 } from "@material-ui/core";
 import MyButton from "./custom/MyButton";
 import theme from "../theme";
-import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserById, removeProjectMembers } from "../helpers/WebApi";
 import { setProjectLeaders, setProjectMembers } from "../action";
+import { useSelection } from "@material-ui/data-grid";
 
 const useStyles = makeStyles({
   dialog: {
@@ -30,8 +30,8 @@ const useStyles = makeStyles({
 const CurrentMember = (props) => {
   const { type, _id } = props;
   const classes = useStyles();
-  const location = useLocation();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const members = useSelector((state) =>
     type === 1 ? state.projectLeaders.members : state.projectMembers.members
   );
@@ -46,7 +46,7 @@ const CurrentMember = (props) => {
   }, [_id]);
 
   const handleOpenClick = () => {
-    if (projectData.isLeader) setOpen(!open);
+    if (projectData.isLeader && user._id !== _id) setOpen(!open);
   };
 
   const handleSubmit = (e) => {
