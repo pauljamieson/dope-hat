@@ -3,6 +3,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import CreateProject from "./CreateProject";
+import Home from "./Home";
 import Login from "./Login";
 import Profile from "./Profile";
 import Project from "./Project";
@@ -13,7 +14,7 @@ const RouterSwitch = (props) => {
   return (
     <Switch>
       <Route exact path="/">
-        <Box>Home</Box>
+        <Home />
       </Route>
       <Route exact path="/login">
         <Login />
