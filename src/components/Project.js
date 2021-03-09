@@ -38,13 +38,21 @@ const Project = (props) => {
   useEffect(() => {
     getProject(id)
       .then((resp) => {
-        batch(() => {
-          dispatch(
-            setProjectData(resp.project.name, resp.project._id, resp.is_leader)
-          );
-          dispatch(setProjectLeaders(resp.project.leaders, resp.project._id));
-          dispatch(setProjectMembers(resp.project.members, resp.project._id));
-        });
+        if (resp.status === "success")
+          batch(() => {
+            dispatch(
+              setProjectData(
+                resp.project.name,
+                resp.project._id,
+                resp.is_leader
+              )
+            );
+            dispatch(setProjectLeaders(resp.project.leaders, resp.project._id));
+            dispatch(setProjectMembers(resp.project.members, resp.project._id));
+          });
+        else {
+          history.push("/profile");
+        }
       })
       .catch((err) => console.log(err));
 
