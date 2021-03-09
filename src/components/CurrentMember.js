@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     backgroundColor: "#4a4a4a",
     color: theme.palette.text.primary,
   },
+  listitem: {
+    backgroundColor: "#3a3a3a",
+  },
 });
 
 const CurrentMember = (props) => {
@@ -64,7 +67,12 @@ const CurrentMember = (props) => {
 
   return (
     <div>
-      <ListItem divider button onClick={handleOpenClick}>
+      <ListItem
+        className={classes.listitem}
+        divider
+        button
+        onClick={handleOpenClick}
+      >
         <Box textAlign="center" clone>
           <ListItemText
             primaryTypographyProps={{ color: "textPrimary" }}
