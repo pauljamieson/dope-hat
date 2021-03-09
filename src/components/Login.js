@@ -22,7 +22,7 @@ const Login = (props) => {
     const { username, password } = e.target;
     login(username.value, password.value)
       .then((resp) => {
-        if (resp.status === "success")
+        if (resp.status === "success") {
           if (resp.login) {
             batch(() => {
               dispatch(setUser(resp.username, resp.display_name, resp._id));
@@ -30,15 +30,16 @@ const Login = (props) => {
             });
 
             history.push("/profile");
-          } else {
-            setLoginErr({
-              isErr: true,
-              msg: "Username and password do not match, please try again.",
-            });
-            setTimeout(() => {
-              setLoginErr({ isErr: false, msg: "" });
-            }, 3000);
           }
+        } else if (resp.status === "failure") {
+          setLoginErr({
+            isErr: true,
+            msg: "Username and password do not match, please try again.",
+          });
+          setTimeout(() => {
+            setLoginErr({ isErr: false, msg: "" });
+          }, 3000);
+        }
       })
       .catch((err) => console.log(err));
   };

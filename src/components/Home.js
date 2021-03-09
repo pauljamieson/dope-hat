@@ -1,4 +1,4 @@
-import { Grid, Card, makeStyles, Typography, Box } from "@material-ui/core";
+import { Grid, makeStyles, Typography, Box } from "@material-ui/core";
 import MyPaper from "./custom/MyPaper";
 import React from "react";
 
