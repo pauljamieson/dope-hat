@@ -1,10 +1,10 @@
 import {
+  Link,
   Box,
   AppBar,
   Button,
   Toolbar,
   Typography,
-  
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
@@ -54,12 +54,23 @@ const NavBar = (props) => {
     history.push("/project/create");
   };
 
+  const titleClickHandler = (e) => {
+    e.preventDefault();
+    history.push("/");
+  };
+
   return (
     <Box className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h5">
-            Dope Hat
+          <Typography noWrap className={classes.title} variant="h5">
+            <Link
+              color="textPrimary"
+              underline="none"
+              onClick={titleClickHandler}
+            >
+              Dope Hat
+            </Link>
           </Typography>
           {isLogged ? (
             <div>
@@ -67,7 +78,7 @@ const NavBar = (props) => {
                 New Project
               </Button>
               <Button onClick={profileClickHandler} variant="outlined">
-                {displayName}
+                Profile
               </Button>
             </div>
           ) : (
