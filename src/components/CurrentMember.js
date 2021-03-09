@@ -47,7 +47,7 @@ const CurrentMember = (props) => {
     });
   }, [_id]);
 
-  const handleOpenClick = () => {
+  const handleOpenClick = (e) => {
     if (projectData.isLeader && user._id !== _id) setOpen(!open);
   };
 
@@ -70,7 +70,7 @@ const CurrentMember = (props) => {
       <ListItem
         className={classes.listitem}
         divider
-        button
+        button={user._id !== _id ? true : false}
         onClick={handleOpenClick}
       >
         <Box textAlign="center" clone>
