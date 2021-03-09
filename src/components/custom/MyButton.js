@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 const styles = {
   root: {
     backgroundColor: "#1f1f1f",
+    margin: 2
   },
 };
 

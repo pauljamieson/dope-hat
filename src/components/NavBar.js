@@ -2,14 +2,15 @@ import {
   Link,
   Box,
   AppBar,
-  Button,
   Toolbar,
   Typography,
+  Grid,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import MyButton from "./custom/MyButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,17 +75,20 @@ const NavBar = (props) => {
           </Typography>
           {isLogged ? (
             <div>
-              <Button onClick={createClickHandler} variant="outlined">
-                New Project
-              </Button>
-              <Button onClick={profileClickHandler} variant="outlined">
-                Profile
-              </Button>
+              
+                  <MyButton onClick={createClickHandler} variant="outlined">
+                    New Project
+                  </MyButton>
+                
+                  <MyButton onClick={profileClickHandler} variant="outlined">
+                    Profile
+                  </MyButton>
+                
             </div>
           ) : (
-            <Button onClick={loginClickHandler} variant="outlined">
+            <MyButton onClick={loginClickHandler} variant="outlined">
               Login
-            </Button>
+            </MyButton>
           )}
         </Toolbar>
       </AppBar>
