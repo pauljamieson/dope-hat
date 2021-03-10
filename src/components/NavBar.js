@@ -5,19 +5,23 @@ import {
   Toolbar,
   Typography,
   Grid,
+  IconButton,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MyButton from "./custom/MyButton";
+import { Menu } from "@material-ui/icons";
+import MyIconButton from "./custom/MenuButton";
+import SwipeMenu from "./SwipeMenu";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+  menuButtons: {
+    display: { xs: "none", sm: "block" },
   },
   title: {
     flexGrow: 1,
@@ -38,7 +42,7 @@ const NavBar = (props) => {
   const classes = useStyles();
   const history = useHistory();
   const isLogged = useSelector((state) => state.isLogged);
-  const displayName = useSelector((state) => state.user.display_name);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const loginClickHandler = (e) => {
     e.preventDefault();
@@ -74,24 +78,26 @@ const NavBar = (props) => {
             </Link>
           </Typography>
           {isLogged ? (
-            <div>
-              
-                  <MyButton onClick={createClickHandler} variant="outlined">
-                    New Project
-                  </MyButton>
-                
-                  <MyButton onClick={profileClickHandler} variant="outlined">
-                    Profile
-                  </MyButton>
-                
-            </div>
+            <Box display={{ xs: "none", sm: "block" }}>
+              <MyButton onClick={createClickHandler} variant="outlined">
+                New Project
+              </MyButton>
+              <MyButton onClick={profileClickHandler} variant="outlined">
+                Profile
+              </MyButton>
+            </Box>
           ) : (
             <MyButton onClick={loginClickHandler} variant="outlined">
               Login
             </MyButton>
           )}
+
+          <MyIconButton onClick={() => setOpenMenu(!openMenu)}>
+            <Menu />
+          </MyIconButton>
         </Toolbar>
       </AppBar>
+      {openMenu && <SwipeMenu setOpenMenu={setOpenMenu} />}
     </Box>
   );
 };
