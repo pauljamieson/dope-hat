@@ -97,7 +97,7 @@ const NavBar = (props) => {
           </MyIconButton>
         </Toolbar>
       </AppBar>
-      {openMenu && <SwipeMenu setOpenMenu={setOpenMenu} />}
+      <SwipeMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
     </Box>
   );
 };

@@ -1,11 +1,11 @@
-import { Drawer, Box } from "@material-ui/core";
+import { Drawer, Box, Fade } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import MyButton from "./custom/MyButton";
 
 const SwipeMenu = (props) => {
-  const { setOpenMenu } = props;
+  const { setOpenMenu, openMenu } = props;
   const isLogged = useSelector((state) => state.isLogged);
   const history = useHistory();
 
@@ -28,7 +28,7 @@ const SwipeMenu = (props) => {
   };
 
   return (
-    <Drawer anchor="right" open="false">
+    <Drawer anchor="right" open={openMenu}>
       <MyButton onClick={() => setOpenMenu(false)}>Close Menu</MyButton>
       {isLogged ? (
         <Box>
