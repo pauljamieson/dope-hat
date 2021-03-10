@@ -11,16 +11,19 @@ const SwipeMenu = (props) => {
 
   const loginClickHandler = (e) => {
     e.preventDefault();
+    setOpenMenu(false);
     history.push("/login");
   };
 
   const profileClickHandler = (e) => {
     e.preventDefault();
+    setOpenMenu(false);
     history.push("/profile");
   };
 
   const createClickHandler = (e) => {
     e.preventDefault();
+    setOpenMenu(false);
     history.push("/project/create");
   };
 
