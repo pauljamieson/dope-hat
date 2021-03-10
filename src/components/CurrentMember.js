@@ -54,7 +54,7 @@ const CurrentMember = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newMembers = members.filter((id) => id != member.id);
+    const newMembers = members.filter((id) => id !== member.id);
     removeProjectMembers(projectData._id, type, newMembers).then((resp) => {
       if (resp.status === "success")
         dispatch(

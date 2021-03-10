@@ -1,4 +1,9 @@
-import { Drawer, Box, Fade, makeStyles } from "@material-ui/core";
+import {
+  Box,
+  makeStyles,
+  SwipeableDrawer,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -35,10 +40,12 @@ const SwipeMenu = (props) => {
   };
 
   return (
-    <Drawer
+    <SwipeableDrawer
       PaperProps={{ className: classes.menu }}
       anchor="right"
       open={openMenu}
+      onOpen={() => setOpenMenu(true)}
+      onClose={() => setOpenMenu(false)}
     >
       <MyButton onClick={() => setOpenMenu(false)}>Close Menu</MyButton>
       {isLogged ? (
@@ -55,8 +62,12 @@ const SwipeMenu = (props) => {
           Login
         </MyButton>
       )}
-      --- Placeholder Menu ---
-    </Drawer>
+      <Box maxWidth={200} marginTop="auto" textAlign="center">
+        <Typography variant="body2">
+          Swipe from right edge on mobile devices to open menu.
+        </Typography>
+      </Box>
+    </SwipeableDrawer>
   );
 };
 

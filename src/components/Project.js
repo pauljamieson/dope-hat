@@ -63,7 +63,7 @@ const Project = (props) => {
         dispatch(clearProjectMembers());
       });
     };
-  }, []);
+  }, [id]);
 
   return (
     <Container maxWidth="md">
