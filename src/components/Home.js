@@ -11,8 +11,9 @@ const useStyles = makeStyles({
 
 const Home = (props) => {
   const classes = useStyles();
+  //use box padding to counteract grid spacing (default: spacing x 4 )
   return (
-    <Box maxWidth="100%">
+    <Box padding="8px">
       <Grid
         id="home-grid"
         className={classes.root}

@@ -27,14 +27,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: theme.palette.text.primary,
   },
-  select: {
-    backgroundColor: "#1f1f1f",
-    "&:hover": {
-      backgroundColor: "#0a0a0a",
-    },
-    "&::selected": {
-      backgroundColor: "#0a0a0a",
-    },
+  appBar: {
+    paddingRight: "10px",
   },
 }));
 
@@ -66,8 +60,8 @@ const NavBar = (props) => {
 
   return (
     <Box className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" >
+        <Toolbar className={classes.appBar}>
           <Typography noWrap className={classes.title} variant="h5">
             <Link
               color="textPrimary"
