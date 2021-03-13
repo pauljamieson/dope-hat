@@ -93,3 +93,13 @@ export const clearProjectMembers = () => {
     },
   };
 };
+
+export const setSnackbar = (open, message) => {
+  return {
+    type: "SET_SNACKBAR",
+    payload: {
+      open: open,
+      message: message,
+    },
+  };
+};

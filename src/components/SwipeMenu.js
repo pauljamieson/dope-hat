@@ -1,9 +1,16 @@
-import { Box, Grid, makeStyles, SwipeableDrawer } from "@material-ui/core";
+import {
+  Box,
+  Grid,
+  makeStyles,
+  SwipeableDrawer,
+  Typography,
+} from "@material-ui/core";
 import { isMobile } from "react-device-detect";
 import React from "react";
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useDispatch, useSelector, batch } from "react-redux";
+import { useHistory, Switch, Route } from "react-router";
 import MyButton from "./custom/MyButton";
+import { loggedOut, clearUser } from "../action";
 
 const useStyles = makeStyles({
   menu: {
@@ -20,6 +27,7 @@ const SwipeMenu = (props) => {
   const isLogged = useSelector((state) => state.isLogged);
   const history = useHistory();
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const loginClickHandler = (e) => {
     e.preventDefault();
@@ -39,6 +47,16 @@ const SwipeMenu = (props) => {
     history.push("/project/create");
   };
 
+  const logoutClickHandler = (e) => {
+    batch(() => {
+      dispatch(loggedOut());
+      dispatch(clearUser());
+    });
+    setOpenMenu(false);
+    localStorage.removeItem("session");
+    history.push("/");
+  };
+
   return (
     <SwipeableDrawer
       PaperProps={{ className: classes.menu }}
@@ -47,8 +65,8 @@ const SwipeMenu = (props) => {
       onOpen={() => setOpenMenu(true)}
       onClose={() => setOpenMenu(false)}
     >
-      <Box width={250} marginTop={isMobile ? "auto" : 0}>
-        <Grid container alignItems="flex-end" justify="flex-end">
+      <Box width={250} padding={0.5} marginTop={isMobile ? "auto" : 0}>
+        <Grid container direction={isMobile ? "column" : "column-reverse"}>
           <Grid item xs={12}>
             <Box display={isLogged ? "" : "none"}>
               <MyButton
@@ -90,6 +108,26 @@ const SwipeMenu = (props) => {
               Close Menu
             </MyButton>
           </Grid>
+          <Switch>
+            <Route path="/profile">
+              <Grid
+                container
+                direction="column"
+              >
+                <Grid item xs={12}>
+                  <Typography color="textSecondary" align="center" variant="h6">
+                    Profile
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <MyButton size="large" fullWidth onClick={logoutClickHandler}>
+                    Logout
+                  </MyButton>
+                </Grid>
+              </Grid>
+            </Route>
+          </Switch>
         </Grid>
       </Box>
     </SwipeableDrawer>

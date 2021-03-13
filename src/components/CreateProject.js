@@ -1,18 +1,26 @@
-import { Box, Container, Grid } from "@material-ui/core";
+import { Box, Container, Grid, Snackbar } from "@material-ui/core";
 import React from "react";
 import MyButton from "./custom/MyButton";
-import MyOutlinedField from "./custom/MyOutlinedField"
+import MyOutlinedField from "./custom/MyOutlinedField";
 import { createProject } from "../helpers/WebApi";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSnackbar } from "../action";
 
 const CreateProject = (props) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
     const { project_name } = e.target;
     createProject(project_name.value)
-      .then((resp) => history.push(`/project/${resp.project_id}`))
+      .then((resp) => {
+        dispatch(
+          setSnackbar(true, `Project ${project_name.value} has been created.`)
+        );
+        history.push(`/project/${resp.project_id}`);
+      })
       .catch((err) => console.log(err));
   };
 
