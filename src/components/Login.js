@@ -5,7 +5,7 @@ import MyOutlinedField from "./custom/MyOutlinedField";
 import { useHistory } from "react-router-dom";
 import { login } from "../helpers/WebApi";
 import { useDispatch, batch } from "react-redux";
-import { loggedIn, setUser } from "../action";
+import { loggedIn, setSnackbar, setUser } from "../action";
 
 const Login = (props) => {
   const history = useHistory();
@@ -27,6 +27,7 @@ const Login = (props) => {
             batch(() => {
               dispatch(setUser(resp.username, resp.display_name, resp._id));
               dispatch(loggedIn());
+              dispatch(setSnackbar(true, "Login successful"));
             });
 
             history.push("/profile");

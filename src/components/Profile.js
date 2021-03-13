@@ -5,7 +5,7 @@ import UserDetails from "./UserDetails";
 import ProjectList from "./ProjectList";
 import { useDispatch, batch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { clearUser, loggedOut } from "../action";
+import { clearUser, loggedOut, setSnackbar } from "../action";
 
 const Profile = (props) => {
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ const Profile = (props) => {
     batch(() => {
       dispatch(loggedOut());
       dispatch(clearUser());
+      dispatch(setSnackbar(true, "Logout successful"));
     });
     localStorage.removeItem("session");
     history.push("/");

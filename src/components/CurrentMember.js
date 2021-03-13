@@ -12,9 +12,9 @@ import {
 } from "@material-ui/core";
 import MyButton from "./custom/MyButton";
 import theme from "../theme";
-import { useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import { getUserById, removeProjectMembers } from "../helpers/WebApi";
-import { setProjectLeaders, setProjectMembers } from "../action";
+import { setProjectLeaders, setProjectMembers, setSnackbar } from "../action";
 
 const useStyles = makeStyles({
   dialog: {
@@ -57,11 +57,15 @@ const CurrentMember = (props) => {
     const newMembers = members.filter((id) => id !== member.id);
     removeProjectMembers(projectData._id, type, newMembers).then((resp) => {
       if (resp.status === "success")
-        dispatch(
+        batch(() => {
+          dispatch(
           type === 1
             ? setProjectLeaders(resp.members, projectData._id)
             : setProjectMembers(resp.members, projectData._id)
-        );
+          );
+          dispatch(setSnackbar(true, `Removed ${member.display_name} from project.`))
+        })
+        
     });
     setOpen(!open);
   };

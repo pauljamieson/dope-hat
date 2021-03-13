@@ -10,7 +10,7 @@ import React from "react";
 import { useDispatch, useSelector, batch } from "react-redux";
 import { useHistory, Switch, Route } from "react-router";
 import MyButton from "./custom/MyButton";
-import { loggedOut, clearUser } from "../action";
+import { loggedOut, clearUser, setSnackbar } from "../action";
 
 const useStyles = makeStyles({
   menu: {
@@ -51,6 +51,7 @@ const SwipeMenu = (props) => {
     batch(() => {
       dispatch(loggedOut());
       dispatch(clearUser());
+      dispatch(setSnackbar(true, "Logout successful"));
     });
     setOpenMenu(false);
     localStorage.removeItem("session");

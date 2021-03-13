@@ -15,8 +15,8 @@ import { Autocomplete } from "@material-ui/lab";
 import { addProjectMembers, getAllDisplayNames } from "../helpers/WebApi";
 import MyButton from "./custom/MyButton";
 import theme from "../theme";
-import { useSelector, useDispatch } from "react-redux";
-import { setProjectLeaders, setProjectMembers } from "../action";
+import { useSelector, useDispatch, batch } from "react-redux";
+import { setProjectLeaders, setProjectMembers, setSnackbar } from "../action";
 
 const useStyles = makeStyles({
   dialog: {
@@ -53,10 +53,18 @@ const AddMembers = (props) => {
     const newMembers = [
       ...new Set([...members, ...values.map((option) => option.userid)]),
     ];
-    dispatch(
-      type === 1 ? setProjectLeaders(newMembers) : setProjectMembers(newMembers)
-    );
-    addProjectMembers(projectData._id, type, newMembers);
+    const names = values.map((option) => option.display_name);
+
+    addProjectMembers(projectData._id, type, newMembers).then(() => {
+      batch(() => {
+        dispatch(
+          type === 1
+            ? setProjectLeaders(newMembers)
+            : setProjectMembers(newMembers)
+        );
+        dispatch(setSnackbar(true, `Added ${names.join(", ")} to project`));
+      });
+    });
   };
 
   const handleChange = (e, value) => {
